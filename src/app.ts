@@ -4,27 +4,16 @@ import { handleGetPassword, handleSetPassword, hasAccess } from "./commands";
 
 import dotenv from "dotenv";
 import { MongoClient } from "mongodb";
+import { closeDB, connectDB, getCollection } from "./db";
 dotenv.config();
 
 const run = async () => {
   const url = process.env.MONGODB_URL;
 
   try {
-    const client = await MongoClient.connect(url, {
-      useUnifiedTopology: true,
-    });
-    console.log("Connected to DB!");
-
-    const db = client.db("Rescue-steffen");
-
-    await db.collection("inventory").insertOne({
-      item: "canvas",
-      qty: 100,
-      tags: ["cotton"],
-      size: { h: 28, w: 35.5, uom: "cm" },
-    });
-
-    client.close();
+    await connectDB(url, "Rescue-steffen");
+    await getCollection("passwords");
+    await closeDB();
   } catch (error) {
     console.error(error);
   }
