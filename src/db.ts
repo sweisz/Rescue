@@ -27,6 +27,35 @@ export async function createPasswordDoc(passwordDoc: PasswordDoc) {
 }
 
 export async function readPasswordDoc(passwordName: string) {
-  const passwordCollection = await getCollection<Password>("passwords");
+  const passwordCollection = await getCollection<PasswordDoc>("passwords");
   return await passwordCollection.findOne({ name: passwordName });
+}
+
+export async function updatePasswordDoc(
+  passwordName: string,
+  fieldsToUpdate: Partial<PasswordDoc>
+): Promise<Boolean> {
+  const passwordCollection = await getCollection<PasswordDoc>("passwords");
+  const updateResult = await passwordCollection.updateOne(
+    { name: passwordName },
+    { $set: fieldsToUpdate }
+  );
+  return updateResult.modifiedCount >= 1;
+}
+
+export async function updatePasswordValue(
+  passwordName: string,
+  newPasswordValue: string
+): Promise<Boolean> {
+  return await updatePasswordDoc(passwordName, { value: newPasswordValue });
+}
+
+export async function deletePasswordDoc(
+  passwordName: string
+): Promise<Boolean> {
+  const passwordCollection = await getCollection<PasswordDoc>("passwords");
+  const deleteResult = await passwordCollection.deleteOne({
+    name: passwordName,
+  });
+  return deleteResult.deletedCount >= 1;
 }

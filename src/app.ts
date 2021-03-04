@@ -10,6 +10,9 @@ import {
   createPasswordDoc,
   getCollection,
   readPasswordDoc,
+  deletePasswordDoc,
+  updatePasswordValue,
+  updatePasswordDoc,
 } from "./db";
 dotenv.config();
 
@@ -18,16 +21,19 @@ const run = async () => {
 
   try {
     await connectDB(url, "Rescue-steffen");
-    //
 
-    //
-    // await readPasswordDoc("Steffen");
-    //
     // await createPasswordDoc({
     //   name:"Steffen";
     //   value:"1234";
     // });
-    //
+
+    // console.log(await readPasswordDoc("Steffen"));
+
+    // await updatePasswordValue("Steffen", "0000");
+
+    // console.log(await deletePasswordDoc("Steffen"));
+    await updatePasswordDoc("steffen", { value: "1234" });
+
     await closeDB();
   } catch (error) {
     console.error(error);
