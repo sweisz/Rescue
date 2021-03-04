@@ -4,7 +4,13 @@ import { handleGetPassword, handleSetPassword, hasAccess } from "./commands";
 
 import dotenv from "dotenv";
 import { MongoClient } from "mongodb";
-import { closeDB, connectDB, getCollection } from "./db";
+import {
+  closeDB,
+  connectDB,
+  createPasswordDoc,
+  getCollection,
+  readPasswordDoc,
+} from "./db";
 dotenv.config();
 
 const run = async () => {
@@ -12,7 +18,16 @@ const run = async () => {
 
   try {
     await connectDB(url, "Rescue-steffen");
-    await getCollection("passwords");
+    //
+
+    //
+    // await readPasswordDoc("Steffen");
+    //
+    // await createPasswordDoc({
+    //   name:"Steffen";
+    //   value:"1234";
+    // });
+    //
     await closeDB();
   } catch (error) {
     console.error(error);
