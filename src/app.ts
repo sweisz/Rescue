@@ -32,7 +32,7 @@ const run = async () => {
 
     const action = await askForAction();
     const commandFunction = commandToFunction[action.command];
-    commandFunction(action.passwordName);
+    await commandFunction(action.passwordName);
 
     await closeDB();
   } catch (error) {
