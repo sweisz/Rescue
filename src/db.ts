@@ -28,12 +28,21 @@ export async function createPasswordDoc(passwordDoc: PasswordDoc) {
     name: passwordDoc.name,
     value: encryptPassword(passwordDoc.value),
   };
-  await passwordCollection.insertOne(passwordDoc);
+  await passwordCollection.insertOne(encryptedPasswordDoc);
 }
 
-export async function readPasswordDoc(passwordName: string) {
+export async function readPasswordDoc(
+  passwordName: string
+): Promise<PasswordDoc | null> {
   const passwordCollection = await getCollection<PasswordDoc>("passwords");
-  return await passwordCollection.findOne({ name: passwordName });
+  const passwordDoc = await passwordCollection.findOne({ name: passwordName });
+  if (!passwordDoc) {
+    return null;
+  }
+  return {
+    name: readPasswordDoc.name,
+    value: decryptPassword(passwordDoc.value),
+  };
 }
 
 export async function updatePasswordDoc(

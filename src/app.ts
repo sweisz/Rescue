@@ -3,7 +3,13 @@ import { askForAction, askForCredentials } from "./questions";
 import { handleGetPassword, handleSetPassword, hasAccess } from "./commands";
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
-import { closeDB, connectDB, createPasswordDoc, readPasswordDoc } from "./db";
+import {
+  closeDB,
+  connectDB,
+  createPasswordDoc,
+  encryptPassword,
+  readPasswordDoc,
+} from "./db";
 
 dotenv.config();
 
@@ -29,6 +35,11 @@ const run = async () => {
     }
 
     await connectDB(url, "Rescue-steffen");
+
+    // await createPasswordDoc({
+    //   name: "Steffen",
+    //   value: "3333",
+    // });
 
     const action = await askForAction();
     const commandFunction = commandToFunction[action.command];
