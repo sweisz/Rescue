@@ -1,5 +1,6 @@
 import { printPassword, printPasswordSet } from "./messages";
 import { askForPasswordValue } from "./questions";
+import { readPasswordDoc } from "./db";
 
 export const hasAccess = (masterPassword: string): boolean =>
   masterPassword === "1234";
@@ -15,5 +16,12 @@ export const handleSetPassword = async (
 export const handleGetPassword = async (
   passwordName: string
 ): Promise<void> => {
-  printPassword(passwordName, "1234");
+  // printPassword(passwordName, "FAKE-Pass-Hallo");
+  const passwordDoc = await readPasswordDoc(passwordName);
+  if (!passwordDoc) {
+    console.log("No Password found");
+    return;
+  }
+
+  printPassword(passwordDoc.name, passwordDoc.value);
 };
