@@ -1,6 +1,6 @@
 import http from "http";
 import dotenv from "dotenv";
-import { connectDB, readPasswordDoc } from "./db";
+import { connectDB, deletePasswordDoc, readPasswordDoc } from "./db";
 
 dotenv.config();
 
@@ -31,6 +31,24 @@ const server = http.createServer(async (request, response) => {
     response.end(JSON.stringify(passwordDoc));
     return;
   }
+
+  if (request.method === "DELETE") {
+    const deletedPassword = await deletePasswordDoc(passwordName);
+    console.log(deletedPassword);
+    if (deletedPassword) {
+      response.statusCode = 200;
+      response.end();
+      return;
+    } else {
+      response.statusCode = 404;
+      response.end();
+      return;
+    }
+  }
+  if (request.method === "PATCH") {
+    // TODO
+  }
+
   response.end();
 });
 

@@ -2,6 +2,9 @@
 GET http://localhost:3333/api/passwords/google
 
 
+### DELETE a password by name
+DELETE http://localhost:3333/api/passwords/google
+
 ### GET a unknown password by name
 GET http://localhost:3333/api/passwords/nixxx
 
