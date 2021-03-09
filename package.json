@@ -41,6 +41,7 @@
     "joi": "^17.4.0",
     "mongodb": "^3.6.3",
     "prompts": "^2.4.0",
-    "style-loader": "^2.0.0"
+    "style-loader": "^2.0.0",
+    "styled-components": "^5.2.1"
   }
 }
