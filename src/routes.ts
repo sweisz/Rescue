@@ -28,7 +28,6 @@ export const handleDelete = async (
   passwordName: string
 ) => {
   const isSuccessful = await deletePasswordDoc(passwordName);
-
   if (!isSuccessful) {
     response.statusCode = 404;
     response.end();
@@ -43,7 +42,6 @@ export const handlePost = async (
   response: http.ServerResponse
 ) => {
   const passwordDoc = await parseJSONBody<PasswordDoc>(request);
-
   const isSuccessful = await createPasswordDoc(passwordDoc);
   if (!isSuccessful) {
     response.statusCode = 400;
