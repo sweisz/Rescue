@@ -68,6 +68,13 @@ function calcColor(length: number): string {
 
 const SafeInput = styled.input<Props>`
   background: ${(props) => calcColor(props.value.length)};
+  padding: 0.9em;
+  border: 2px solid white;
+  border-radius: 0.7em;
+  ::placeholder,
+  ::-webkit-input-placeholder {
+    color: #ffffff;
+  }
 `;
 
 export default function Home() {
@@ -103,6 +110,7 @@ export default function Home() {
           value={secret}
           onChange={(event) => setSecret(event.target.value)}
           type="password"
+          placeholder="Enter a password."
         />
       </Container>
     </>
