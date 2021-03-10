@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import SafeInput from "../components/SafeInput";
 
 const StyledSubmitButton = styled.button`
   margin: 1em;
@@ -51,30 +52,6 @@ const InputSearch = styled.input`
   border: none;
   padding: 0.9em;
   border-radius: 0.7em;
-`;
-
-type Props = {
-  value: string;
-};
-
-function calcColor(length: number): string {
-  if (length === 0) {
-    return "red";
-  } else if (length < 10) {
-    return "orange";
-  }
-  return "green";
-}
-
-const SafeInput = styled.input<Props>`
-  background: ${(props) => calcColor(props.value.length)};
-  padding: 0.9em;
-  border: 2px solid white;
-  border-radius: 0.7em;
-  ::placeholder,
-  ::-webkit-input-placeholder {
-    color: #ffffff;
-  }
 `;
 
 export default function Home() {
